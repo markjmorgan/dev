@@ -1,0 +1,126 @@
+<!-- =============================================
+     Index.html - for Markdown Editor Project 
+     v20251110.1445 
+     =============================================
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Markdown Editor</title>
+
+  <!-- CodeMirror 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/codemirror.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/mode/markdown/markdown.min.js"></script>
+
+  <!-- Search addon (NEW) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/search.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/search/searchcursor.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/addon/dialog/dialog.min.css">
+
+  <!-- Marked + HLJS -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <!-- jsPDF & html2canvas -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+  <!-- Split.js -->
+  <script src="https://unpkg.com/split.js/dist/split.min.js"></script>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div id="container">
+  <div id="toolbar">
+    <!-- File -->
+    <div class="toolbar-group">
+      <div class="dropdown">
+        <button title="File"><i class="fas fa-file"></i></button>
+        <div class="dropdown-content">
+          <button id="file-open"><i class="fas fa-folder-open"></i> Open</button>
+          <button id="file-save"><i class="fas fa-save"></i> Save</button>
+          <button id="file-saveas"><i class="fas fa-download"></i> Save As</button>
+          <hr>
+          <button id="export-html"><i class="fas fa-file-code"></i> Export HTML</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Format -->
+    <div class="toolbar-group">
+      <div class="dropdown">
+        <button title="Headings"><i class="fas fa-heading"></i></button>
+        <div class="dropdown-content">
+            <button data-h="remove">Remove</button>
+            <button data-h="1">Heading 1</button>
+            <button data-h="2">Heading 2</button>
+            <button data-h="3">Heading 3</button>
+            <button data-h="4">Heading 4</button>
+            <button data-h="5">Heading 5</button>
+            <button data-h="6">Heading 6</button>
+        </div>
+      </div>
+
+      <button id="bold"       title="Bold (Ctrl+B)"><i class="fas fa-bold"></i></button>
+      <button id="italic"     title="Italic (Ctrl+I)"><i class="fas fa-italic"></i></button>
+      <button id="code"       title="Inline Code"><i class="fas fa-code"></i></button>
+
+      <!-- Code Block Dropdown -->
+      <div class="dropdown">
+        <button id="code-block-btn" title="Code Block"><i class="fas fa-code"></i></button>
+        <div class="dropdown-content">
+          <button data-lang="remove">Remove</button>
+          <button data-lang="none">None</button>
+          <hr>
+          <button data-lang="bash">bash</button>
+          <button data-lang="python">python</button>
+          <button data-lang="javascript">javascript</button>
+          <button data-lang="js">js</button>
+          <button data-lang="html">html</button>
+          <button data-lang="css">css</button>
+          <button data-lang="sql">sql</button>
+          <button data-lang="json">json</button>
+          <button data-lang="text">text</button>
+        </div>
+      </div>      
+      
+      <button id="blockquote" title="Blockquote"><i class="fas fa-quote-left"></i></button>
+      <button id="link"       title="Link"><i class="fas fa-link"></i></button>
+      <button id="image"      title="Image"><i class="fas fa-image"></i></button>
+      <button id="table"      title="Table"><i class="fas fa-table"></i></button>
+      <button id="hr"         title="Horizontal Rule"><i class="fas fa-minus"></i></button>
+    </div>
+
+    <!-- Lists -->
+    <div class="toolbar-group">
+      <button id="list-ul" title="Bullet List"><i class="fas fa-list-ul"></i></button>
+      <button id="list-ol" title="Numbered List"><i class="fas fa-list-ol"></i></button>
+    </div>
+
+    <!-- Tools -->
+    <div class="toolbar-group">
+      <button id="search-btn"      title="Find (Ctrl+F)"><i class="fas fa-search"></i></button>
+      <button id="spellcheck-btn"  title="Spell Check"><i class="fas fa-spell-check"></i></button>
+    </div>
+  </div>
+
+  <div class="split-container" id="split">
+    <div class="pane" id="editor-pane"></div>
+    <div class="pane" id="preview-pane"></div>
+  </div>
+</div>
+
+<input type="file" id="file-input" accept=".md,.markdown" style="display:none">
+<script src="app.js"></script>
+</body>
+</html>
